@@ -15,4 +15,4 @@ WORKDIR /app
 ENTRYPOINT ["/sbin/tini", "--"]
 
 # Default command
-CMD ["npm", "start"]
+CMD ["echo", "start"]
