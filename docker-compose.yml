@@ -1,0 +1,29 @@
+
+# TODO: store postgresql data in a volume
+volumes:
+  node_modules:
+
+services:
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb # shared memory limit - default value from example
+    environment:
+      # Use postgres/example user/password credentials
+      POSTGRES_PASSWORD: example
+
+  adminer:
+    # adminer has been recommended by postgres docker image
+    # but turns out it's unmaintained, adminerevo is a fork of it
+    image: ghcr.io/shyim/adminerevo:latest
+    restart: always
+    ports:
+      - 8080:8080
+  dev:
+    build: .
+    volumes:
+      - node_modules:/app/node_modules
+      - .:/app
+    depends_on:
+      - db
+    command: tail -f /dev/null
