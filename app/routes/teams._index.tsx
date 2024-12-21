@@ -1,7 +1,7 @@
-import { Form, useLoaderData } from "@remix-run/react";
+import { Form, Link, useLoaderData } from "@remix-run/react";
 import { createTeam, fetchAllTeams } from "../api/teams.js";
 import { ActionFunctionArgs } from "@remix-run/node";
-
+import { PencilSquareIcon } from "@heroicons/react/24/solid";
 export async function loader() {
   const teams = await fetchAllTeams();
   return {
@@ -26,9 +26,14 @@ export default function Teams() {
         {teamsData.teams.map((team) => (
           <div
             key={team.id}
-            className="p-1 h-16 rounded border-2 m-2 flex items-center pl-4"
+            className="flex p-1 h-16 rounded border-2 m-2 flex items-center pl-4 cursor-pointer hover:bg-sky-700 hover:text-slate-100"
           >
-            {team.name}
+            <div>{team.name}</div>
+            <div className="ml-auto pr-8">
+              <Link to={`/teams/${team.id}`}>
+                <PencilSquareIcon className="size-6 text-blue-300 hover:text-slate-100" />
+              </Link>
+            </div>
           </div>
         ))}
       </div>
@@ -37,6 +42,11 @@ export default function Teams() {
 }
 
 export async function action({ request }: ActionFunctionArgs) {
-  await createTeam();
+  switch (request.method) {
+    case "put":
+      return await createTeam();
+    case "get":
+  }
+
   return null;
 }

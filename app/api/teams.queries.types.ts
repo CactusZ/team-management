@@ -32,3 +32,38 @@ export interface ICreateTeamQuery {
   result: ICreateTeamResult;
 }
 
+/** 'GetTeam' parameters type */
+export interface IGetTeamParams {
+  id?: number | null | void;
+}
+
+/** 'GetTeam' return type */
+export interface IGetTeamResult {
+  id: number;
+  name: string;
+}
+
+/** 'GetTeam' query type */
+export interface IGetTeamQuery {
+  params: IGetTeamParams;
+  result: IGetTeamResult;
+}
+
+/** 'UpdateTeam' parameters type */
+export interface IUpdateTeamParams {
+  id?: number | null | void;
+  name?: string | null | void;
+}
+
+/** 'UpdateTeam' return type */
+export interface IUpdateTeamResult {
+  id: number;
+  name: string;
+}
+
+/** 'UpdateTeam' query type */
+export interface IUpdateTeamQuery {
+  params: IUpdateTeamParams;
+  result: IUpdateTeamResult;
+}
+
