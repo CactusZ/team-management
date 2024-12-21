@@ -1,5 +1,6 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
 import {
+  getChildTeams,
   getParentTeamCandidates,
   getTeam,
   updateTeamName,
@@ -11,14 +12,16 @@ import React, { useCallback } from "react";
 import _ from "lodash";
 import { FormField } from "./FormField.js";
 import { assertIdIsValid } from "./utils.js";
+import { TeamList } from "../../components/TeamList/TeamList.js";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   try {
     const id = Number(params.id);
     assertIdIsValid(id);
-    const [team, parentTeamCandidates] = await Promise.all([
+    const [team, parentTeamCandidates, childTeams] = await Promise.all([
       getTeam({ id }),
       getParentTeamCandidates({ teamId: id }),
+      getChildTeams({ parentId: id }),
     ]);
 
     if (!team) {
@@ -27,6 +30,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
     return {
       team,
       parentTeamCandidates,
+      childTeams,
     };
   } catch (e) {
     console.error("Error loading team: ", e);
@@ -35,7 +39,8 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 
 export default function TeamView() {
-  const { team, parentTeamCandidates } = useLoaderData<typeof loader>();
+  const { team, parentTeamCandidates, childTeams } =
+    useLoaderData<typeof loader>();
 
   const fetcher = useFetcher();
 
@@ -101,6 +106,7 @@ export default function TeamView() {
       </div>
       <div>
         <h1 className="text-2xl font-bold p-4">Sub-teams</h1>
+        <TeamList teams={childTeams} />
       </div>
     </div>
   );

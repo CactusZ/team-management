@@ -4,7 +4,11 @@ import { initQueries } from "./init.queries.js";
 export async function init() {
   try {
     const client = await getDbClient();
-    await initQueries.initQuery.run(undefined as void, client);
+    await Promise.all(
+      Object.values(initQueries).map((query) =>
+        query.run(undefined as void, client),
+      ),
+    );
     console.log("Database initialized");
   } catch (e) {
     console.error("Error initializing the database: ", e);
