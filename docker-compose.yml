@@ -10,6 +10,8 @@ services:
     environment:
       # Use postgres/example user/password credentials
       POSTGRES_PASSWORD: example
+    ports:
+      - 5432:5432
 
   adminer:
     # adminer has been recommended by postgres docker image
