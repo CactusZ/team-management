@@ -1,7 +1,7 @@
 import { Form, Link, useLoaderData } from "@remix-run/react";
 import { createTeam, fetchAllTeams } from "../../api/teams.js";
 import { ActionFunctionArgs } from "@remix-run/node";
-import { PencilSquareIcon } from "@heroicons/react/24/solid";
+import { TeamList } from "../../components/TeamList/TeamList.js";
 export async function loader() {
   const teams = await fetchAllTeams();
   return {
@@ -23,19 +23,7 @@ export default function Teams() {
         </Form>
       </div>
       <div className="p-8 flex-1 overflow-y-auto">
-        {teamsData.teams.map((team) => (
-          <div
-            key={team.id}
-            className="flex p-1 h-16 rounded border-2 m-2 flex items-center pl-4 cursor-pointer hover:bg-sky-700 hover:text-slate-100"
-          >
-            <div>{team.name}</div>
-            <div className="ml-auto pr-8">
-              <Link to={`/teams/${team.id}`}>
-                <PencilSquareIcon className="size-6 text-blue-300 hover:text-slate-100" />
-              </Link>
-            </div>
-          </div>
-        ))}
+        <TeamList teams={teamsData.teams} />
       </div>
     </div>
   );
