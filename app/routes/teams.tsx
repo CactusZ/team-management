@@ -12,7 +12,7 @@ export async function loader() {
 export default function Teams() {
   const teamsData = useLoaderData<typeof loader>();
   return (
-    <div>
+    <div className="max-h-full flex flex-col">
       <div className="w-full border-b-2 pb-4 p-16">
         <h1 className="text-2xl font-bold">Teams</h1>
         <Form method="put" action="/teams">
@@ -22,9 +22,12 @@ export default function Teams() {
           </button>
         </Form>
       </div>
-      <div className="p-16">
+      <div className="p-8 flex-1 overflow-y-auto">
         {teamsData.teams.map((team) => (
-          <div key={team.id} className="">
+          <div
+            key={team.id}
+            className="p-1 h-16 rounded border-2 m-2 flex items-center pl-4"
+          >
             {team.name}
           </div>
         ))}

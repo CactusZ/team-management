@@ -29,7 +29,7 @@ export default function App() {
               </ul>
             </nav>
           </div>
-          <div className="flex-1">
+          <div className="flex-1 max-h-screen">
             <Outlet />
           </div>
         </div>
