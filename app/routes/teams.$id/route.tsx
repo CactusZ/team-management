@@ -1,9 +1,10 @@
 import { LoaderFunctionArgs } from "@remix-run/node";
-import { getTeam, updateTeam, type TeamForm } from "../api/teams.js";
+import { getTeam, updateTeam, type TeamForm } from "../../api/teams.js";
 import { Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
-import React, { FC, useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import _ from "lodash";
+import { FormField } from "./FormField.js";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   try {
@@ -54,34 +55,6 @@ export default function TeamView() {
     </div>
   );
 }
-
-const FormField: FC<{
-  label: string;
-  value: string;
-  onChange?: (newValue: string) => void;
-  disabled?: boolean;
-}> = ({ label, value: passedValue, onChange: passedOnChange, disabled }) => {
-  const [value, setValue] = useState(passedValue);
-
-  const onChange = useCallback<React.ChangeEventHandler<HTMLInputElement>>(
-    (e) => {
-      setValue(e.target.value);
-      passedOnChange?.(e.target.value);
-    },
-    [passedOnChange],
-  );
-  return (
-    <div className="flex p-1 items-center">
-      <div className="pr-4 w-32 text-right">{label}</div>
-      <input
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
-        className="border p-1 pl-4 w-64 rounded-lg disabled:bg-gray-200"
-      />
-    </div>
-  );
-};
 
 export async function action({ request, params }: LoaderFunctionArgs) {
   const id = Number(params.id);

@@ -1,5 +1,5 @@
 import { Form, Link, useLoaderData } from "@remix-run/react";
-import { createTeam, fetchAllTeams } from "../api/teams.js";
+import { createTeam, fetchAllTeams } from "../../api/teams.js";
 import { ActionFunctionArgs } from "@remix-run/node";
 import { PencilSquareIcon } from "@heroicons/react/24/solid";
 export async function loader() {
