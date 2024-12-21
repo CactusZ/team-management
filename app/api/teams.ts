@@ -36,7 +36,7 @@ export async function updateTeam({
 }: {
   id: number;
   name: string;
-}): Promise<Team> {
+}): Promise<boolean> {
   const result = await runQuery(teamQueries.updateTeam, { id, name });
-  return result[0];
+  return !!result[0];
 }

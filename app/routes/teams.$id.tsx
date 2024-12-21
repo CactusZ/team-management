@@ -90,17 +90,22 @@ export async function action({ request, params }: LoaderFunctionArgs) {
   }
   switch (request.method) {
     case "PATCH":
-      const formData = await request.formData();
-      const name = formData.get("name") as string;
-      if (!name) {
-        return new Response("Missing team name", { status: 400 });
-      }
-      await updateTeam({ id, name });
-      return null;
-
+      return actionUpdateTeam(id, request);
     default:
       throw new Response("Method not allowed", { status: 405 });
   }
+}
 
-  return null;
+async function actionUpdateTeam(id: number, request: Request) {
+  const formData = await request.formData();
+  const name = formData.get("name") as string;
+  if (!name) {
+    return new Response("Missing team name", { status: 400 });
+  }
+  const success = await updateTeam({ id, name });
+  if (!success) {
+    throw new Response("Failed to update team", { status: 500 });
+  } else {
+    return null;
+  }
 }
