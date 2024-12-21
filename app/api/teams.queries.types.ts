@@ -1,23 +1,58 @@
 /** Types generated for queries found in "app/api/teams.queries.ts" */
 
-/** 'GetAllTeams' parameters type */
-export type IGetAllTeamsParams = void;
+/** 'GetRootTeams' parameters type */
+export type IGetRootTeamsParams = void;
 
-/** 'GetAllTeams' return type */
-export interface IGetAllTeamsResult {
+/** 'GetRootTeams' return type */
+export interface IGetRootTeamsResult {
   id: number;
   name: string;
 }
 
-/** 'GetAllTeams' query type */
-export interface IGetAllTeamsQuery {
-  params: IGetAllTeamsParams;
-  result: IGetAllTeamsResult;
+/** 'GetRootTeams' query type */
+export interface IGetRootTeamsQuery {
+  params: IGetRootTeamsParams;
+  result: IGetRootTeamsResult;
+}
+
+/** 'GetChildTeams' parameters type */
+export interface IGetChildTeamsParams {
+  parent_id?: number | null | void;
+}
+
+/** 'GetChildTeams' return type */
+export interface IGetChildTeamsResult {
+  id: number;
+  name: string;
+}
+
+/** 'GetChildTeams' query type */
+export interface IGetChildTeamsQuery {
+  params: IGetChildTeamsParams;
+  result: IGetChildTeamsResult;
+}
+
+/** 'GetParentTeamCandidates' parameters type */
+export interface IGetParentTeamCandidatesParams {
+  id?: number | null | void;
+}
+
+/** 'GetParentTeamCandidates' return type */
+export interface IGetParentTeamCandidatesResult {
+  id: number;
+  name: string;
+}
+
+/** 'GetParentTeamCandidates' query type */
+export interface IGetParentTeamCandidatesQuery {
+  params: IGetParentTeamCandidatesParams;
+  result: IGetParentTeamCandidatesResult;
 }
 
 /** 'CreateTeam' parameters type */
 export interface ICreateTeamParams {
   name?: string | null | void;
+  parent_id?: number | null | void;
 }
 
 /** 'CreateTeam' return type */
@@ -49,21 +84,39 @@ export interface IGetTeamQuery {
   result: IGetTeamResult;
 }
 
-/** 'UpdateTeam' parameters type */
-export interface IUpdateTeamParams {
+/** 'UpdateTeamName' parameters type */
+export interface IUpdateTeamNameParams {
   id?: number | null | void;
   name?: string | null | void;
 }
 
-/** 'UpdateTeam' return type */
-export interface IUpdateTeamResult {
+/** 'UpdateTeamName' return type */
+export interface IUpdateTeamNameResult {
   id: number;
   name: string;
 }
 
-/** 'UpdateTeam' query type */
-export interface IUpdateTeamQuery {
-  params: IUpdateTeamParams;
-  result: IUpdateTeamResult;
+/** 'UpdateTeamName' query type */
+export interface IUpdateTeamNameQuery {
+  params: IUpdateTeamNameParams;
+  result: IUpdateTeamNameResult;
+}
+
+/** 'UpdateTeamParent' parameters type */
+export interface IUpdateTeamParentParams {
+  id?: number | null | void;
+  newParent?: number | null | void;
+}
+
+/** 'UpdateTeamParent' return type */
+export interface IUpdateTeamParentResult {
+  id: number;
+  name: string;
+}
+
+/** 'UpdateTeamParent' query type */
+export interface IUpdateTeamParentQuery {
+  params: IUpdateTeamParentParams;
+  result: IUpdateTeamParentResult;
 }
 

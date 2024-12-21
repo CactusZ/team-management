@@ -1,9 +1,9 @@
 import { Form, Link, useLoaderData } from "@remix-run/react";
-import { createTeam, fetchAllTeams } from "../../api/teams.js";
+import { createTeam, getTeams } from "../../api/teams.js";
 import { ActionFunctionArgs } from "@remix-run/node";
 import { TeamList } from "../../components/TeamList/TeamList.js";
 export async function loader() {
-  const teams = await fetchAllTeams();
+  const teams = await getTeams();
   return {
     teams,
   };
@@ -16,9 +16,11 @@ export default function Teams() {
       <div className="w-full border-b-2 pb-4 p-16">
         <h1 className="text-2xl font-bold">Teams</h1>
         <Form method="put" action="/teams">
-          <button className="p-2 mt-2 bg-sky-500 text-sky-950 rounded hover:bg-sky-700 text-slate-100">
-            {" "}
-            Add Team{" "}
+          <button
+            name="addTeam"
+            className="p-2 mt-2 bg-sky-500 text-sky-950 rounded hover:bg-sky-700 text-slate-100"
+          >
+            Add Team
           </button>
         </Form>
       </div>
@@ -31,9 +33,9 @@ export default function Teams() {
 
 export async function action({ request }: ActionFunctionArgs) {
   switch (request.method) {
-    case "put":
+    case "PUT":
       return await createTeam();
-    case "get":
+    case "GET":
   }
 
   return null;

@@ -12,7 +12,7 @@ export async function runQuery<
   params?: T extends TaggedQuery<infer Z>
     ? Z["params"]
     : { params: any; result: any },
-) {
+): Promise<Array<T extends TaggedQuery<infer Z> ? Z["result"] : any>> {
   try {
     const client = await getDbClient();
     const result = await query.run(params, client);
