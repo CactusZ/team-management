@@ -80,7 +80,12 @@ export default function TeamView() {
         <h1 className="text-2xl font-bold">{team.name}</h1>
       </div>
       <div className="p-4">
-        <select name="parent-team" onChange={updateTeamParent}>
+        <select
+          name="parent-team"
+          onChange={updateTeamParent}
+          value={team.parent_id || 0}
+          className="border p-1 pl-4 w-fit rounded-lg text-right"
+        >
           <option value="0">No parent team</option>
           {parentTeamCandidates.map((team) => (
             <option key={team.id} value={team.id}>
@@ -115,7 +120,9 @@ export async function action({ request, params }: LoaderFunctionArgs) {
 async function actionUpdateTeam(id: number, request: Request) {
   const formData = await request.formData();
   const name = formData.get("name") as string;
-  const newParent = Number(formData.get("newParent"));
+  const newParent = formData.has("newParent")
+    ? Number(formData.get("newParent")) || null
+    : undefined;
 
   let success = false;
 
@@ -123,7 +130,7 @@ async function actionUpdateTeam(id: number, request: Request) {
     success = await updateTeamName({ id, name });
   }
 
-  if (newParent) {
+  if (newParent !== undefined) {
     success = await updateTeamParent({ id, newParent });
   }
 

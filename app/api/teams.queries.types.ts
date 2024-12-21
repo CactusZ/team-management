@@ -76,6 +76,8 @@ export interface IGetTeamParams {
 export interface IGetTeamResult {
   id: number;
   name: string;
+  parent_id: number;
+  parent_name: string;
 }
 
 /** 'GetTeam' query type */

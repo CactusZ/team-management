@@ -57,7 +57,7 @@ export async function createTeam({
   return result[0];
 }
 
-export async function getTeam({ id }: { id: number }): Promise<Team> {
+export async function getTeam({ id }: { id: number }) {
   const result = await runQuery(teamQueries.getTeam, { id });
   return result[0];
 }
@@ -78,7 +78,7 @@ export async function updateTeamParent({
   newParent,
 }: {
   id: number;
-  newParent: number;
+  newParent: number | null;
 }): Promise<boolean> {
   const result = await runQuery(teamQueries.updateTeamParent, {
     id,
