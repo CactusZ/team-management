@@ -1,4 +1,5 @@
 import { createRequestHandler } from "@remix-run/express";
+import { ServerBuild } from "@remix-run/node";
 import express from "express";
 
 const viteDevServer =
@@ -12,16 +13,14 @@ const viteDevServer =
 
 const app = express();
 app.use(
-  viteDevServer
-    ? viteDevServer.middlewares
-    : express.static("build/client")
+  viteDevServer ? viteDevServer.middlewares : express.static("build/client")
 );
 
 const build = viteDevServer
   ? () =>
       viteDevServer.ssrLoadModule(
         "virtual:remix/server-build"
-      )
+      ) as Promise<ServerBuild>
   : await import("./build/server/index.js");
 
 app.all("*", createRequestHandler({ build }));

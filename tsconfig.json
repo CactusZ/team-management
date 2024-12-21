@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "types": ["node", "@remix-run/node", "vite/client"],
+    "outDir": "./dist",
+
+    "incremental": true,           
+    "jsx": "react-jsx",                   
+
+    /* Language and Environment */
+    "target": "ES2017",                                  
+    /* Modules */
+    "module": "NodeNext",      
+    "moduleResolution": "nodenext",                     
+    "esModuleInterop": true,                            
+    "forceConsistentCasingInFileNames": true,       
+
+    /* Type Checking */
+    "strict": true,                                      
+    "skipLibCheck": true                               
+  },
+  "exclude": ["./dist/**/*"]
+}
