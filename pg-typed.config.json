@@ -1,0 +1,18 @@
+{
+  "transforms": [
+    {
+      "mode": "ts",
+      "include": "**/*.queries.ts",
+      "emitTemplate": "{{dir}}/{{name}}.types.ts"
+    }
+  ],
+  "srcDir": "./app/",
+  "failOnError": false,
+  "camelCaseColumnNames": false,
+  "db": {
+    "host": "db",
+    "user": "postgres",
+    "dbName": "team-management",
+    "password": "example"
+  }
+}

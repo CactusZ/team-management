@@ -5,24 +5,29 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx ./server.ts",
+    "pg-typed": "pgtyped -w -c pg-typed.config.json",
     "start": "cross-env NODE_ENV=production node ./dist/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@pgtyped/runtime": "^2.3.0",
     "@remix-run/express": "^2.15.1",
     "@remix-run/node": "^2.15.1",
     "@remix-run/react": "^2.15.1",
     "cross-env": "^7.0.3",
     "express": "^4.21.2",
     "isbot": "^4.4.0",
+    "pg": "^8.13.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
+    "@pgtyped/cli": "^2.3.0",
     "@remix-run/dev": "^2.15.1",
     "@types/express": "^5.0.0",
+    "@types/pg": "^8.11.10",
     "@types/react": "^19.0.2",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.49",
