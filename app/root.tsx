@@ -1,4 +1,6 @@
 import { Links, Meta, Outlet, Scripts } from "@remix-run/react";
+import stylesheet from "./tailwind.css?url";
+import { LinksFunction } from "@remix-run/node";
 
 export default function App() {
   return (
@@ -17,3 +19,7 @@ export default function App() {
     </html>
   );
 }
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: stylesheet },
+];
