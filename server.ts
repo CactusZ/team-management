@@ -1,7 +1,7 @@
 import { createRequestHandler } from "@remix-run/express";
 import { ServerBuild } from "@remix-run/node";
 import express from "express";
-import { init } from "./app/db/schema.js";
+import { init } from "./app/db/init.js";
 
 await init();
 

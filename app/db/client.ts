@@ -11,7 +11,6 @@ export async function getDbClient() {
       database: process.env.POSTGRES_DB,
     });
     await client.connect();
-    console.log("Connected to the database");
     return client;
   } catch (e) {
     console.error("Error connecting to the database: ", e);

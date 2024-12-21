@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx ./server.ts",
+    "dev": "tsx watch --exclude './vite.config.ts.*' --clear-screen=false ./server.ts",
     "pg-typed": "pgtyped -w -c pg-typed.config.json",
     "start": "cross-env NODE_ENV=production node ./dist/server.js"
   },

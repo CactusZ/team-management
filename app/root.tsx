@@ -13,7 +13,7 @@ export default function App() {
       </head>
       <body>
         <div className="flex">
-          <div className="w-1/5 h-screen bg-sky-500">
+          <div className="w-1/5 h-screen bg-sky-500 min-w-max">
             <div className="flex flex-col justify-center text-center border-b-2 bg-sky-800">
               <h1 className="p-4 text-2xl text-blue-100 select-none">
                 Team management app
@@ -29,7 +29,7 @@ export default function App() {
               </ul>
             </nav>
           </div>
-          <div>
+          <div className="flex-1">
             <Outlet />
           </div>
         </div>
