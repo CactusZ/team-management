@@ -10,6 +10,7 @@ import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
 import React, { useCallback } from "react";
 import _ from "lodash";
 import { FormField } from "./FormField.js";
+import { assertIdIsValid } from "./utils.js";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   try {
@@ -30,12 +31,6 @@ export async function loader({ params }: LoaderFunctionArgs) {
   } catch (e) {
     console.error("Error loading team: ", e);
     throw new Response("Error loading team", { status: 500 });
-  }
-}
-
-function assertIdIsValid(id: number) {
-  if (isNaN(id) || id < 1 || !id) {
-    throw new Response("Invalid team ID", { status: 400 });
   }
 }
 

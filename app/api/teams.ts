@@ -1,4 +1,3 @@
-import { getDbClient } from "../db/client.js";
 import { runQuery } from "../db/runQuery.js";
 import { teamQueries } from "./teams.queries.js";
 
@@ -20,6 +19,17 @@ export async function getTeams({
   const result = parentId
     ? await runQuery(teamQueries.getChildTeams, { parent_id: parentId })
     : await runQuery(teamQueries.getRootTeams);
+  return result;
+}
+
+export async function getChildTeams({
+  parentId,
+}: {
+  parentId: number;
+}): Promise<Team[]> {
+  const result = await runQuery(teamQueries.getChildTeams, {
+    parent_id: parentId,
+  });
   return result;
 }
 
