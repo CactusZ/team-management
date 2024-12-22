@@ -9,7 +9,7 @@ Tested on Node 22 and npm 10
 3. `docker compose up -d` (to launch postgres, adminer and dev container)
     - postgres username/password is postgres/example
     - adminer available on port 8080
-4. either locally `npm run dev` or attach to dev container and run `npm run dev` inside
+4. either locally `npm run dev` or attach to dev container and run `npm i && npm run dev` inside
     - you can attach via VSCode Dev Container functionality or `docker compose exec dev zsh`
     - local app available by default on `localhost:3000`
     - launched in docker app available by default on `localhost:3100`
