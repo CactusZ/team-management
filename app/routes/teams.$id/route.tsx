@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs } from "@remix-run/node";
+import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import {
   getChildTeams,
   getParentTeamCandidates,
@@ -6,22 +6,29 @@ import {
   updateTeamName,
   updateTeamParent,
 } from "../../api/teams.js";
-import { Link, useFetcher, useLoaderData } from "@remix-run/react";
-import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
+import { Form, Link, useFetcher, useLoaderData } from "@remix-run/react";
+import {
+  ArrowUturnLeftIcon,
+  PlusCircleIcon,
+  PlusIcon,
+} from "@heroicons/react/24/solid";
 import React, { useCallback } from "react";
 import _ from "lodash";
 import { FormField } from "./FormField.js";
 import { assertIdIsValid } from "./utils.js";
 import { TeamList } from "../../components/TeamList/TeamList.js";
+import { UsersList } from "../../components/UsersList/UsersList.js";
+import { getUsers } from "../../api/users.js";
 
 export async function loader({ params }: LoaderFunctionArgs) {
   try {
     const id = Number(params.id);
     assertIdIsValid(id);
-    const [team, parentTeamCandidates, childTeams] = await Promise.all([
+    const [team, parentTeamCandidates, childTeams, users] = await Promise.all([
       getTeam({ id }),
       getParentTeamCandidates({ teamId: id }),
       getChildTeams({ parentId: id }),
+      getUsers({ teamId: id }),
     ]);
 
     if (!team) {
@@ -31,6 +38,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
       team,
       parentTeamCandidates,
       childTeams,
+      users,
     };
   } catch (e) {
     console.error("Error loading team: ", e);
@@ -39,7 +47,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 
 export default function TeamView() {
-  const { team, parentTeamCandidates, childTeams } =
+  const { team, parentTeamCandidates, childTeams, users } =
     useLoaderData<typeof loader>();
 
   const fetcher = useFetcher();
@@ -104,6 +112,9 @@ export default function TeamView() {
         <FormField label="Id" value={team.id.toString()} disabled />
         <FormField label="Name" value={team.name} onChange={updateTeamName} />
       </div>
+      <div className="border-b-2">
+        <UsersList users={users} showAddUser />
+      </div>
       <div>
         <h1 className="text-2xl font-bold p-4">Sub-teams</h1>
         <TeamList teams={childTeams} />
@@ -112,7 +123,7 @@ export default function TeamView() {
   );
 }
 
-export async function action({ request, params }: LoaderFunctionArgs) {
+export async function action({ request, params }: ActionFunctionArgs) {
   const id = Number(params.id);
   assertIdIsValid(id);
   switch (request.method) {

@@ -7,16 +7,20 @@ import {
   PencilSquareIcon,
 } from "@heroicons/react/24/solid";
 import { TeamList } from "./TeamList.js";
-import { loader } from "../../routes/teams.$id.hierarchy/route.js";
+import { loader as hierarchyLoader } from "../../routes/teams.$id.hierarchy/route.js";
+import { UsersList } from "../UsersList/UsersList.js";
+import { loader as userLoader } from "../../routes/teams.$id.users/route.js";
 
 export const TeamListItem: FC<{ team: Team }> = ({ team }) => {
-  const fetcher = useFetcher<typeof loader>();
+  const hierarchyFetcher = useFetcher<typeof hierarchyLoader>();
+  const userFetcher = useFetcher<typeof userLoader>();
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpanded = useCallback(async () => {
     const shouldExpand = !isExpanded;
     if (shouldExpand) {
-      fetcher.load(`/teams/${team.id}/hierarchy`);
+      hierarchyFetcher.load(`/teams/${team.id}/hierarchy`);
+      userFetcher.load(`/teams/${team.id}/users`);
     }
     setIsExpanded(shouldExpand);
   }, [isExpanded]);
@@ -40,10 +44,20 @@ export const TeamListItem: FC<{ team: Team }> = ({ team }) => {
           </Link>
         </div>
       </div>
-      {isExpanded && !!fetcher.data && (
-        <div className="pl-16 flex-col">
-          <TeamList teams={fetcher.data.childTeams} />
-        </div>
+
+      {isExpanded && (
+        <>
+          {userFetcher.data && (
+            <div className="pl-16 border-b-2">
+              <UsersList users={userFetcher.data.users} />
+            </div>
+          )}
+          {hierarchyFetcher.data && (
+            <div className="pl-16 flex-col">
+              <TeamList teams={hierarchyFetcher.data.childTeams} />
+            </div>
+          )}
+        </>
       )}
     </>
   );
