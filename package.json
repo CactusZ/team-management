@@ -8,6 +8,10 @@
     "dev": "dotenvx run -- tsx watch --exclude './vite.config.ts.*' --clear-screen=false ./server.ts",
     "pg-typed": "pgtyped -w -c pg-typed.config.json"
   },
+  "engines": {
+    "node": "22.x",
+    "npm": "10.x"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
