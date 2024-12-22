@@ -3,6 +3,7 @@ import {
   ICreateTeamQuery,
   IGetChildTeamsQuery,
   IGetParentTeamCandidatesQuery,
+  IGetPathToTeamQuery,
   IGetRootTeamsQuery,
   IGetTeamQuery,
   IUpdateTeamNameQuery,
@@ -27,6 +28,17 @@ const getTeam = sql<IGetTeamQuery>`
 SELECT team.id, team.name, parent.id parent_id, parent.name parent_name FROM teams AS team LEFT JOIN teams AS parent ON parent.id = team.parent_id WHERE team.id = $id
 `;
 
+const getPathToTeam = sql<IGetPathToTeamQuery>`
+  WITH RECURSIVE path AS (
+    SELECT id, name, parent_id FROM teams WHERE id = $id
+    UNION
+    SELECT t.id, t.name, t.parent_id 
+    FROM teams AS t 
+    JOIN path ON path.parent_id = t.id
+  )
+  SELECT id, name FROM path
+`;
+
 const updateTeamName = sql<IUpdateTeamNameQuery>`UPDATE teams SET name = $name WHERE id = $id RETURNING id, name`;
 const updateTeamParent = sql<IUpdateTeamParentQuery>`
 WITH RECURSIVE child_ids AS (
@@ -42,6 +54,7 @@ export const teamQueries = {
   getRootTeams,
   getChildTeams,
   getParentTeamCandidates,
+  getPathToTeam,
   createTeam,
   getTeam,
   updateTeamName,

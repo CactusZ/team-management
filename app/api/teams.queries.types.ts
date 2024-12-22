@@ -86,6 +86,23 @@ export interface IGetTeamQuery {
   result: IGetTeamResult;
 }
 
+/** 'GetPathToTeam' parameters type */
+export interface IGetPathToTeamParams {
+  id?: number | null | void;
+}
+
+/** 'GetPathToTeam' return type */
+export interface IGetPathToTeamResult {
+  id: number | null;
+  name: string | null;
+}
+
+/** 'GetPathToTeam' query type */
+export interface IGetPathToTeamQuery {
+  params: IGetPathToTeamParams;
+  result: IGetPathToTeamResult;
+}
+
 /** 'UpdateTeamName' parameters type */
 export interface IUpdateTeamNameParams {
   id?: number | null | void;

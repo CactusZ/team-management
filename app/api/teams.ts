@@ -86,3 +86,8 @@ export async function updateTeamParent({
   });
   return !!result[0];
 }
+
+export async function getPathToTeam({ id }: { id: number }) {
+  const result = await runQuery(teamQueries.getPathToTeam, { id });
+  return result;
+}

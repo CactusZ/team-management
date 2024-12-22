@@ -2,6 +2,7 @@ import { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import {
   getChildTeams,
   getParentTeamCandidates,
+  getPathToTeam,
   getTeam,
   updateTeamName,
   updateTeamParent,
@@ -20,12 +21,14 @@ export async function loader({ params }: LoaderFunctionArgs) {
   try {
     const id = Number(params.id);
     assertIdIsValid(id);
-    const [team, parentTeamCandidates, childTeams, users] = await Promise.all([
-      getTeam({ id }),
-      getParentTeamCandidates({ teamId: id }),
-      getChildTeams({ parentId: id }),
-      getUsers({ teamId: id }),
-    ]);
+    const [team, parentTeamCandidates, childTeams, users, pathToTeam] =
+      await Promise.all([
+        getTeam({ id }),
+        getParentTeamCandidates({ teamId: id }),
+        getChildTeams({ parentId: id }),
+        getUsers({ teamId: id }),
+        getPathToTeam({ id }),
+      ]);
 
     if (!team) {
       throw new Response("Team not found", { status: 404 });
@@ -35,6 +38,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
       parentTeamCandidates,
       childTeams,
       users,
+      pathToTeam,
     };
   } catch (e) {
     console.error("Error loading team: ", e);
@@ -43,7 +47,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 }
 
 export default function TeamView() {
-  const { team, parentTeamCandidates, childTeams, users } =
+  const { team, parentTeamCandidates, childTeams, users, pathToTeam } =
     useLoaderData<typeof loader>();
 
   const fetcher = useFetcher();
@@ -89,6 +93,11 @@ export default function TeamView() {
         <h1 className="text-2xl font-bold">{team.name}</h1>
       </div>
       <div className="p-4">
+        <>
+          {pathToTeam.slice(2).map((team) => (
+            <span key={team.id}>{team.name} / </span>
+          ))}
+        </>
         <select
           name="parent-team"
           onChange={updateTeamParent}
