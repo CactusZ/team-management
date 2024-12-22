@@ -6,7 +6,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
   const id = Number(params.id);
   assertIdIsValid(id);
 
-  const childTeams = (await getChildTeams({ parentId: id })) || [];
+  const childTeams = (await getChildTeams({ teamId: id })) || [];
 
   return {
     childTeams,

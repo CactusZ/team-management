@@ -23,12 +23,12 @@ export async function getTeams({
 }
 
 export async function getChildTeams({
-  parentId,
+  teamId,
 }: {
-  parentId: number;
+  teamId: number;
 }): Promise<Team[]> {
   const result = await runQuery(teamQueries.getChildTeams, {
-    parent_id: parentId,
+    parent_id: teamId,
   });
   return result;
 }

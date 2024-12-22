@@ -25,7 +25,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
       await Promise.all([
         getTeam({ id }),
         getParentTeamCandidates({ teamId: id }),
-        getChildTeams({ parentId: id }),
+        getChildTeams({ teamId: id }),
         getUsers({ teamId: id }),
         getPathToTeam({ id }),
       ]);
