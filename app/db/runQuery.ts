@@ -6,13 +6,14 @@ import { getDbClient } from "./client.js";
  * A good place to potentially add db-specific logging, metrics or custom error handling
  */
 export async function runQuery<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T extends TaggedQuery<{ params: any; result: any }>,
 >(
   query: T,
   params?: T extends TaggedQuery<infer Z>
     ? Z["params"]
-    : { params: any; result: any },
-): Promise<Array<T extends TaggedQuery<infer Z> ? Z["result"] : any>> {
+    : { params: unknown; result: unknown },
+): Promise<Array<T extends TaggedQuery<infer Z> ? Z["result"] : unknown>> {
   try {
     const client = await getDbClient();
     const result = await query.run(params, client);

@@ -1,4 +1,4 @@
-import { Form, Link, useLoaderData } from "@remix-run/react";
+import { Form, useLoaderData } from "@remix-run/react";
 import { createTeam, getTeams } from "../../api/teams.js";
 import { ActionFunctionArgs } from "@remix-run/node";
 import { TeamList } from "../../components/TeamList/TeamList.js";

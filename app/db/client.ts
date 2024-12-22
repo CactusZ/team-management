@@ -3,7 +3,7 @@ import pg, { Client } from "pg";
 let client: Promise<Client> | undefined = undefined;
 
 export async function getDbClient() {
-  client ??= new Promise(async (resolve, reject) => {
+  client ??= (async () => {
     try {
       const { Client } = pg;
       const client = new Client({
@@ -15,12 +15,12 @@ export async function getDbClient() {
       });
       await client.connect();
       console.log("Connected to the database");
-      resolve(client);
+      return client;
     } catch (e) {
       console.error("Error connecting to the database: ", e);
-      reject(e);
+      throw e;
     }
-  });
+  })();
 
   return client;
 }

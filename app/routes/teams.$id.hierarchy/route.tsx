@@ -1,4 +1,4 @@
-import { LoaderFunction, LoaderFunctionArgs } from "@remix-run/node";
+import { LoaderFunctionArgs } from "@remix-run/node";
 import { assertIdIsValid } from "../teams.$id/utils.js";
 import { getChildTeams } from "../../api/teams.js";
 

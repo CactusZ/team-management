@@ -6,12 +6,8 @@ import {
   updateTeamName,
   updateTeamParent,
 } from "../../api/teams.js";
-import { Form, Link, useFetcher, useLoaderData } from "@remix-run/react";
-import {
-  ArrowUturnLeftIcon,
-  PlusCircleIcon,
-  PlusIcon,
-} from "@heroicons/react/24/solid";
+import { Link, useFetcher, useLoaderData } from "@remix-run/react";
+import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
 import React, { useCallback } from "react";
 import _ from "lodash";
 import { FormField } from "./FormField.js";
