@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch --exclude './vite.config.ts.*' --clear-screen=false ./server.ts",
-    "pg-typed": "pgtyped -w -c pg-typed.config.json",
-    "start": "cross-env NODE_ENV=production node ./dist/server.js"
+    "init": "shx cp .env.example .env",
+    "dev": "dotenvx run -- tsx watch --exclude './vite.config.ts.*' --clear-screen=false ./server.ts",
+    "pg-typed": "pgtyped -w -c pg-typed.config.json"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +27,7 @@
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
+    "@dotenvx/dotenvx": "^1.31.3",
     "@eslint/js": "^9.17.0",
     "@pgtyped/cli": "^2.3.0",
     "@remix-run/dev": "^2.15.1",
@@ -40,6 +41,7 @@
     "globals": "^15.14.0",
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
+    "shx": "^0.3.4",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
