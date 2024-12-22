@@ -5,9 +5,7 @@ export async function init() {
   try {
     const client = await getDbClient();
     await Promise.all(
-      Object.values(initQueries).map((query) =>
-        query.run(undefined as void, client),
-      ),
+      initQueries.map((query) => query.run(undefined as void, client)),
     );
     console.log("Database initialized");
   } catch (e) {

@@ -4,7 +4,13 @@ import {
   IGetUsersFromTeamQuery,
 } from "./users.queries.types.js";
 
-const getUsersFromTeam = sql<IGetUsersFromTeamQuery>`SELECT u.id, u.email, u.name FROM users u JOIN team_users tu ON u.id = tu.user_id WHERE tu.team_id = $team_id ORDER BY u.email`;
+const getUsersFromTeam = sql<IGetUsersFromTeamQuery>`
+SELECT u.id, u.email, u.name 
+FROM users AS u
+JOIN team_users AS team_user
+ON u.id = team_user.user_id 
+WHERE team_user.team_id = $team_id 
+ORDER BY u.email`;
 
 const addUserToTeam = sql<IAddUserToTeamQuery>`
     WITH new_user AS (

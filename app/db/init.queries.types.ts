@@ -1,38 +1,74 @@
 /** Types generated for queries found in "app/db/init.queries.ts" */
 
-/** 'InitTeams' parameters type */
-export type IInitTeamsParams = void;
+/** '' parameters type */
+export type IParams = void;
 
-/** 'InitTeams' return type */
-export type IInitTeamsResult = void;
+/** '' return type */
+export type IResult = void;
 
-/** 'InitTeams' query type */
-export interface IInitTeamsQuery {
-  params: IInitTeamsParams;
-  result: IInitTeamsResult;
+/** '' query type */
+export interface IQuery {
+  params: IParams;
+  result: IResult;
 }
 
-/** 'InitUsers' parameters type */
-export type IInitUsersParams = void;
+/** '' parameters type */
+export type IParams = void;
 
-/** 'InitUsers' return type */
-export type IInitUsersResult = void;
+/** '' return type */
+export type IResult = void;
 
-/** 'InitUsers' query type */
-export interface IInitUsersQuery {
-  params: IInitUsersParams;
-  result: IInitUsersResult;
+/** '' query type */
+export interface IQuery {
+  params: IParams;
+  result: IResult;
 }
 
-/** 'InitTeamUsers' parameters type */
-export type IInitTeamUsersParams = void;
+/** '' parameters type */
+export type IParams = void;
 
-/** 'InitTeamUsers' return type */
-export type IInitTeamUsersResult = void;
+/** '' return type */
+export type IResult = void;
 
-/** 'InitTeamUsers' query type */
-export interface IInitTeamUsersQuery {
-  params: IInitTeamUsersParams;
-  result: IInitTeamUsersResult;
+/** '' query type */
+export interface IQuery {
+  params: IParams;
+  result: IResult;
+}
+
+/** '' parameters type */
+export type IParams = void;
+
+/** '' return type */
+export type IResult = void;
+
+/** '' query type */
+export interface IQuery {
+  params: IParams;
+  result: IResult;
+}
+
+/** '' parameters type */
+export type IParams = void;
+
+/** '' return type */
+export type IResult = void;
+
+/** '' query type */
+export interface IQuery {
+  params: IParams;
+  result: IResult;
+}
+
+/** '' parameters type */
+export type IParams = void;
+
+/** '' return type */
+export type IResult = void;
+
+/** '' query type */
+export interface IQuery {
+  params: IParams;
+  result: IResult;
 }
 

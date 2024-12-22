@@ -24,5 +24,10 @@ export async function addUserToTeam({
   email: string;
   name: string;
 }) {
-  return runQuery(usersQueries.addUserToTeam, { team_id: teamId, email, name });
+  const results = await runQuery(usersQueries.addUserToTeam, {
+    team_id: teamId,
+    email,
+    name,
+  });
+  return !!results.length;
 }
