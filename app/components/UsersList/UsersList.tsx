@@ -18,7 +18,7 @@ export const UsersList: FC<{
     <div>
       <div className="flex items-center justify-between pr-12">
         <h1
-          className="text-2xl font-bold p-4 cursor-pointer"
+          className="text-l font-bold p-4 cursor-pointer"
           onClick={toggleExpanded}
         >
           Users
@@ -31,7 +31,7 @@ export const UsersList: FC<{
           </Form>
         )}
       </div>
-      {isExpanded && (
+      {isExpanded && !!users.length && (
         <div className="pl-8 pb-8">
           <ul>
             {users.map((user) => (
@@ -42,6 +42,9 @@ export const UsersList: FC<{
             ))}
           </ul>
         </div>
+      )}
+      {isExpanded && !users.length && (
+        <div className="pl-4 pb-2 text-gray-500">No users in this team</div>
       )}
     </div>
   );

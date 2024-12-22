@@ -48,7 +48,7 @@ export const TeamListItem: FC<{ team: Team }> = ({ team }) => {
       {isExpanded && (
         <>
           {userFetcher.data && (
-            <div className="pl-16 border-b-2">
+            <div className="pl-16">
               <UsersList users={userFetcher.data.users} />
             </div>
           )}
