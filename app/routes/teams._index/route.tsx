@@ -35,7 +35,6 @@ export async function action({ request }: ActionFunctionArgs) {
   switch (request.method) {
     case "PUT":
       return await createTeam();
-    case "GET":
   }
 
   return null;

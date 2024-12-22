@@ -16,6 +16,7 @@ export const TeamListItem: FC<{ team: Team }> = ({ team }) => {
   const userFetcher = useFetcher<typeof userLoader>();
   const [isExpanded, setIsExpanded] = useState(false);
 
+  // TODO: prevent multiple requests when clicking multiple times
   const toggleExpanded = useCallback(async () => {
     const shouldExpand = !isExpanded;
     if (shouldExpand) {

@@ -29,5 +29,6 @@ export async function addUserToTeam({
     email,
     name,
   });
-  return !!results.length;
+  const isOperationSuccessful = !!results.length;
+  return isOperationSuccessful;
 }

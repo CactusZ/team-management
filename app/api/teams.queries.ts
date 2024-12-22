@@ -13,12 +13,18 @@ import {
 const getRootTeams = sql<IGetRootTeamsQuery>`SELECT id, name FROM teams WHERE parent_id IS NULL ORDER BY name`;
 const getChildTeams = sql<IGetChildTeamsQuery>`SELECT id, name FROM teams WHERE parent_id = $parent_id ORDER BY name`;
 const getParentTeamCandidates = sql<IGetParentTeamCandidatesQuery>`
+-- To avoid circular dependencies, we need to exclude the team itself from the candidates
+-- alongside all its children
+
+-- child_ids is a recursive query that gets all children of the team
 WITH RECURSIVE child_ids AS (
   SELECT id FROM teams WHERE parent_id = $id
   UNION
   SELECT t.id FROM teams t JOIN child_ids ON t.parent_id = child_ids.id
 )
 
+-- We then select all teams that are not in the child_ids set and not the team itself
+-- These are all eligible candidates for the parent of the team
 SELECT id, name FROM teams WHERE id NOT IN (SELECT id FROM child_ids) AND id != $id ORDER BY name
 `;
 
@@ -29,6 +35,8 @@ SELECT team.id, team.name, parent.id parent_id, parent.name parent_name FROM tea
 `;
 
 const getPathToTeam = sql<IGetPathToTeamQuery>`
+
+  -- we recursivle get team parents starting from the team itself
   WITH RECURSIVE path AS (
     SELECT id, name, parent_id FROM teams WHERE id = $id
     UNION
@@ -41,6 +49,7 @@ const getPathToTeam = sql<IGetPathToTeamQuery>`
 
 const updateTeamName = sql<IUpdateTeamNameQuery>`UPDATE teams SET name = $name WHERE id = $id RETURNING id, name`;
 const updateTeamParent = sql<IUpdateTeamParentQuery>`
+  -- to prevent circular dependencies, we need to ensure that the new parent is not a child of the team itself
 WITH RECURSIVE child_ids AS (
   SELECT id FROM teams WHERE parent_id = $id
   UNION

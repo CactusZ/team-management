@@ -3,7 +3,11 @@ import { ServerBuild } from "@remix-run/node";
 import express from "express";
 import { init } from "./app/db/init.js";
 
-await init();
+try {
+  await init();
+} catch (e) {
+  console.error("Error initializing database: ", e);
+}
 
 const viteDevServer =
   process.env.NODE_ENV === "production"

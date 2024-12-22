@@ -9,7 +9,7 @@ import {
 } from "../../api/teams.js";
 import { Link, useFetcher, useLoaderData } from "@remix-run/react";
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import _ from "lodash";
 import { FormField } from "./FormField.js";
 import { assertIdIsValid } from "./utils.js";
@@ -52,19 +52,21 @@ export default function TeamView() {
 
   const fetcher = useFetcher();
 
-  const updateTeamName = useCallback(
-    _.debounce((newName: string) => {
-      if (!newName) {
-        return;
-      }
-      fetcher.submit(
-        { name: newName },
-        {
-          method: "patch",
-          action: `/teams/${team.id}`,
-        },
-      );
-    }, 100),
+  const updateTeamName = useMemo(
+    () =>
+      _.debounce((newName: string) => {
+        if (!newName) {
+          return;
+        }
+        fetcher.submit(
+          { name: newName },
+          {
+            method: "patch",
+            action: `/teams/${team.id}`,
+          },
+        );
+      }, 100),
+    // TODO: cancel debounce on unmount
     [fetcher],
   );
 
@@ -142,18 +144,18 @@ export async function action({ request, params }: ActionFunctionArgs) {
 async function actionUpdateTeam(id: number, request: Request) {
   const formData = await request.formData();
   const name = formData.get("name") as string;
-  const newParent = formData.has("newParent")
+  const newParentId = formData.has("newParent")
     ? Number(formData.get("newParent")) || null
     : undefined;
 
-  let success = false;
+  let success = true;
 
   if (name) {
-    success = await updateTeamName({ id, name });
+    success &&= await updateTeamName({ id, name });
   }
 
-  if (newParent !== undefined) {
-    success = await updateTeamParent({ id, newParent });
+  if (newParentId !== undefined) {
+    success &&= await updateTeamParent({ teamId: id, newParentId });
   }
 
   if (!success) {

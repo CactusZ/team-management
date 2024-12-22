@@ -1,15 +1,13 @@
 import { runQuery } from "../db/runQuery.js";
 import { teamQueries } from "./teams.queries.js";
 
-export interface TeamForm {
-  name?: string;
-}
-
 export interface Team {
   id: number;
   name: string;
   parent_id?: number;
 }
+
+const DEFAULT_TEAM_NAME = "New Team";
 
 export async function getTeams({
   parentId,
@@ -49,7 +47,7 @@ export async function createTeam({
 }: {
   parentId?: number;
 } = {}): Promise<Team> {
-  const defaultTeamName = "New Team";
+  const defaultTeamName = DEFAULT_TEAM_NAME;
   const result = await runQuery(teamQueries.createTeam, {
     name: defaultTeamName,
     parent_id: parentId || null,
@@ -74,15 +72,15 @@ export async function updateTeamName({
 }
 
 export async function updateTeamParent({
-  id,
-  newParent,
+  teamId,
+  newParentId,
 }: {
-  id: number;
-  newParent: number | null;
+  teamId: number;
+  newParentId: number | null;
 }): Promise<boolean> {
   const result = await runQuery(teamQueries.updateTeamParent, {
-    id,
-    newParent,
+    id: teamId,
+    newParent: newParentId,
   });
   return !!result[0];
 }

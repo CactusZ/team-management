@@ -6,6 +6,7 @@ import { getDbClient } from "./client.js";
  * A good place to potentially add db-specific logging, metrics or custom error handling
  */
 export async function runQuery<
+  // providing any here just like it is done in pg-typed
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T extends TaggedQuery<{ params: any; result: any }>,
 >(

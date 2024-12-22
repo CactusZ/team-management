@@ -15,6 +15,7 @@ export async function action({ params, request }: ActionFunctionArgs) {
     throw new Response("Method Not Allowed", { status: 405 });
   }
 
+  // TODO: implement proper user creation
   const randomEmail =
     sample_users[Math.floor(Math.random() * sample_users.length)];
   await addUserToTeam({

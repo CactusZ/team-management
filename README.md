@@ -1,7 +1,12 @@
 # team-management
 
-TODOs
+## Implemented functionality
 
-DX
+1. Teams Home view where you can see teams and their hierarchy
 
-- remember command history in docker
+
+## TODOs
+
+1. Error boundary to properly handle errors on UI
+2. Better loading states
+3. Delete team/user
